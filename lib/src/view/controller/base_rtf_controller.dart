@@ -325,6 +325,25 @@ class _RichTextEditorController extends TextEditingController {
     );
   }
 
+  /// Toggles the [RTFTextMetadata.decoration] between [RTFTextDecorationEnum.none] and [RTFTextDecorationEnum.underline].
+  void toggleStrikeThrough() {
+    final RTFTextMetadata tempMetadata =
+        metadata ?? RTFTextFieldController.defaultMetadata;
+
+    final RTFTextMetadata changedMetadata = tempMetadata.copyWith(
+      decoration: tempMetadata.decoration == RTFTextDecorationEnum.strikeThrough
+          ? RTFTextDecorationEnum.none
+          : RTFTextDecorationEnum.strikeThrough,
+    );
+
+    changeStyleOnSelectionChange(
+      changedMetadata: changedMetadata,
+      change: RTFTextMetadataChangeEnum.fontDecoration,
+      modifiedDeltas: deltas.copy,
+      selection: selection,
+    );
+  }
+
   /// Toggles the [RTFTextMetadata.decoration] between [RTFTextDecorationEnum.none] and [RTFTextDecorationEnum.lineThrough].
   void toggleSuperscript() {
     final RTFTextMetadata tempMetadata =
